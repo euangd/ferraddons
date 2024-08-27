@@ -1,0 +1,30 @@
+name: Magnetdl
+author: egd
+sources:
+  - name: MagnetDL
+    version: 2.0
+    minVersion: '0.7'
+    about: >-
+      Parser for MagnetDL
+    website: https://www.magnetdl.com
+    tags:
+      - name: Reliable
+        color: 34c759
+      - name: Torrents
+      - name: Movies
+      - name: TV
+    htmlParser:
+      searchUrl: /search/?m=1&q={query}
+      rows: table.download > tbody > tr
+      magnet:
+        query: td:nth-child(1) > a[href^="magnet:?xt=urn:btih:"]
+        attribute: href
+      title:
+        query: td:nth-child(2) > a
+      size:
+        query: td:nth-child(5)
+      sl:
+        seeders: td:nth-child(6)
+        seederRegex: '(\d+)'
+        leechers: td:nth-child(7)
+        leecherRegex: '(\d+)'
