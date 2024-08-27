@@ -1,0 +1,42 @@
+name: bitsearch
+author: egd
+sources:
+  - name: bitsearch
+    version: 1.0
+    minVersion: '0.7'
+    about: >-
+      Parser for bitsearch.to
+    website: https://bitsearch.to
+    tags:
+      - name: Reliable
+        color: 34c759
+      - name: Torrents
+      - name: Movies
+      - name: TV
+    htmlParser:
+      searchUrl: /search?q={query}&page={page}
+      rows: div.table-list > div.table-row
+      magnet:
+        query: a[href^="magnet:?xt=urn:btih:"]
+        attribute: href
+      title:
+        query: a.mt-0.title
+      size:
+        query: td:contains("Size") + td
+      sl:
+        seeders: td:contains("Seeders") + td
+        seederRegex: '(\d+)'
+        leechers: td:contains("Leechers") + td
+        leecherRegex: '(\d+)'
+actions:
+  - name: Open in Safari
+    version: 1
+    minVersion: '0.7'
+    about: |-
+      Opens the given link in Safari
+    website: https://www.apple.com/safari/
+    requires:
+      - debrid
+    deeplink:
+      - os: iOS
+        scheme: '{link}'
